@@ -45,23 +45,56 @@ function createLinkedList(posts) {
   return head; // Return the head of the linked list
 }
 
-
-
-// TODO: Implement the searchSocialMediaFeed function
 function searchSocialMediaFeed(feed, keyword) {
-  // TODO: Handle the case where the feed is empty
-  // TODO: Initialise an empty array to store the search results
-  // TODO: Normalise the keyword for case-insensitive search
-  // TODO: Split the keyword into individual words
-  // TODO: Traverse the linked list
-  // TODO: Normalise the text of the current post for case-insensitive search
-  // TODO: Split the text of the current post into individual words
-  // TODO: Check if any keyword word is partially present in any text word
-  // TODO: If there's a partial match, add the current post to the results
-  // TODO: Return the array of search results
+  if (!feed || !keyword || typeof keyword !== "string") {
+    throw new Error(
+      "feed must not be empty,keyword must not be empty and ensure keyword is a string"
+    );
+  }
+
+  const results = [];
+
+  const normalisedKeyword = keyword.toLowerCase();
+  const keywordToWords = normalisedKeyword.split(/\s+/);
+  let current = feed;
+  while (current) {
+    const postText = current.data.text.toLowerCase();
+
+    // Split the text of the current post into individual words
+    const postWords = postText.split(/\s+/);
+    
+    let isMatch = false;
+
+    for (let i = 0; i < keywordToWords.length; i++) {
+      const keywordWords = keywordToWords[i];
+
+      // Check if the current keyword word matches any word in the post
+      for (let j = 0; j < postWords.length; j++) {
+        const postWord = postWords[j];
+
+        // If the post word contains the keyword word, we have a match
+        if (postWord.includes(keywordWords)) {
+          isMatch = true;
+          break; // No need to check further words in this post for the current keyword word
+        }
+      }
+
+      // If we found a match, break out of the loop for checking other keyword words
+      if (isMatch) {
+        break;
+      }
+    }
+
+    // If there's a partial match, add the current post to the results
+    if (isMatch) {
+      results.push(current.data);
+    }
+
+    // Move to the next node
+    current = current.next;
+  }
+  return results;
 }
 
-// ADDITIONAL TODO - The suggested functions above can be refactored into multiple functions if you think appropriate.
 
-
-export default {createLinkedList, searchSocialMediaFeed};
+export default { createLinkedList, searchSocialMediaFeed };
