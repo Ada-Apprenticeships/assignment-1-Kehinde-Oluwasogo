@@ -1,33 +1,51 @@
-// TODO: Implement the createLinkedList function
 class Node {
-  constructor(data) {
+  constructor(data, next = null) {
     this.data = data; // This stores the post object (text, timestamp, author)
-    this.next = null; // This points to the next node (initially null)
+    this.next = next; // This points to the next node (initially null)
   }
 }
+
 function createLinkedList(posts) {
+  // Check if the input 'posts' is valid (an array with at least one element)
+  if (!Array.isArray(posts) || posts.length === 0) {
+    throw new Error("Input must be a non-empty array");
+  }
+
+  // Validate the structure of each post
+  for (const post of posts) {
+    if (
+      typeof post !== "object" ||
+      typeof post.text !== "string" ||
+      typeof post.timestamp !== "string" ||
+      typeof post.author !== "string" ||
+      post.text.trim() === "" ||
+      post.author.trim() === "" ||
+      isNaN(Date.parse(post.timestamp)) // Ensure 'timestamp' is a valid date
+    ) {
+      throw new Error("Invalid post structure");
+    }
+  }
+
+  // Create the linked list with the validated posts
   let head = null;
   let current = null;
 
-  // TODO: Check if the input 'posts' is valid (an array with at least one element)#
-  if (!Array.isArray(posts)){
-    throw new Error("must be an array");
-    
-  }
-  // TODO: Iterate through each post in the 'posts' array
-  for (const post in posts){
-    if(
-      typeof post !== 'object'|| typeof post.text !== 'string'|| typeof post.timestamp !== 'string'|| typeof post.author !== 'string'||
-      post.text.trim() === '' ||post.author.trim() === '' ||isNaN(Date.parse(post.timestamp))
-    ){
-      throw new Error()
+  for (const post of posts) {
+    const node = new Node(post);
+
+    if (!head) {
+      head = node; // Initialize the head of the linked list
+    } else {
+      current.next = node; // Link the current node to the new node
     }
+
+    current = node; // Move the current pointer to the new node
   }
-  // TODO: Validate the structure of each post (ensure it has 'text', 'timestamp', and 'author' properties with correct types and values)
-  // TODO: If any post has an invalid structure, throw an error
-  // TODO: Create the linked list with the validated posts
-  // TODO: Return the head of the linked list
+
+  return head; // Return the head of the linked list
 }
+
+
 
 // TODO: Implement the searchSocialMediaFeed function
 function searchSocialMediaFeed(feed, keyword) {
