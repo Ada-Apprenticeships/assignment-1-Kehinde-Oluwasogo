@@ -1,7 +1,7 @@
 import Product from "./Product.js";
 
 
-class Electronics extends Product {
+export class Electronics extends Product {
     constructor(brand,warranty){
         this.brand = brand;
         this.warranty = warranty;
