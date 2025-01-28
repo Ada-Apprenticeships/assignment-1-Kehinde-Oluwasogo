@@ -1,5 +1,7 @@
 import Product from "./Product.js";
 import Inventory from "./Inventory.js";
+import Clothes from "./clothes.js"
+import Electronics from "./electronics.js"
 
 // Sample usage
 const inventory = new Inventory();
@@ -16,3 +18,5 @@ try {
 } catch (error) {
   console.error("An error occurred:", error.message);
 }
+
+console.log(product1);

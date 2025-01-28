@@ -5,12 +5,17 @@ class Product {
     #quantity;
   
     constructor(id, name, price, quantity) {
+      if (new.target === Product) {
+        // if the class being instantiated is Product throw error
+        throw new Error("Cannot instantiate abstract class Product directly.");
+      }
       this.#id = id;
       this.#name = name;
       this.#price = price;
       this.#quantity = quantity;
     }
   
+
     get id() {
       return this.#id;
     }
