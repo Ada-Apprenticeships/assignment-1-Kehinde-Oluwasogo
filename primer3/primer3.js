@@ -8,7 +8,8 @@ class Node {
 function createLinkedList(posts) {
   // Check if the input 'posts' is valid (an array with at least one element)
   if (!Array.isArray(posts) || posts.length === 0) {
-    throw new Error("Input must be a non-empty array");
+    // throw new Error("Input must be a non-empty array");
+    return null;
   }
 
   // Validate the structure of each post
@@ -97,4 +98,4 @@ function searchSocialMediaFeed(feed, keyword) {
 }
 
 
-export default { createLinkedList, searchSocialMediaFeed };
+export { createLinkedList, searchSocialMediaFeed };
