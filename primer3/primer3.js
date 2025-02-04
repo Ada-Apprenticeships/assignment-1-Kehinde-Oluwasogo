@@ -57,9 +57,8 @@ function searchSocialMediaFeed(posts, keyword) {
 
   const normalisedKeyword = keyword.toLowerCase();
   const keywordToWords = normalisedKeyword.split(/\s+/);
-  let feed = posts;
-  while (feed) {
-    const postText = feed.data.text.toLowerCase();
+  while (posts) {
+    const postText = posts.data.text.toLowerCase();
 
     // Split the text of the current post into individual words
     const postWords = postText.split(/\s+/);
@@ -88,11 +87,11 @@ function searchSocialMediaFeed(posts, keyword) {
 
     // If there's a partial match, add the current post to the results
     if (isMatch) {
-      results.push(feed.data);
+      results.push(posts.data);
     }
 
     // Move to the next node
-    feed = feed.next;
+    posts = posts.next;
   }
   return results;
 }
