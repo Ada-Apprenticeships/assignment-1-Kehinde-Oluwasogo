@@ -29,7 +29,7 @@ function createLinkedList(posts) {
 
   // Create the linked list with the validated posts
   let head = null;
-  let current = null;
+  let current = null; //(pointer)
 
   for (const post of posts) {
     const node = new Node(post);
