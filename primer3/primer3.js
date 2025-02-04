@@ -46,8 +46,8 @@ function createLinkedList(posts) {
   return head; // Return the head of the linked list
 }
 
-function searchSocialMediaFeed(feed, keyword) {
-  if (!feed || !keyword || typeof keyword !== "string") {
+function searchSocialMediaFeed(posts, keyword) {
+  if (!posts || !keyword || typeof keyword !== "string") {
     throw new Error(
       "feed must not be empty,keyword must not be empty and ensure keyword is a string"
     );
@@ -57,9 +57,9 @@ function searchSocialMediaFeed(feed, keyword) {
 
   const normalisedKeyword = keyword.toLowerCase();
   const keywordToWords = normalisedKeyword.split(/\s+/);
-  let current = feed;
-  while (current) {
-    const postText = current.data.text.toLowerCase();
+  let feed = posts;
+  while (feed) {
+    const postText = feed.data.text.toLowerCase();
 
     // Split the text of the current post into individual words
     const postWords = postText.split(/\s+/);
@@ -88,11 +88,11 @@ function searchSocialMediaFeed(feed, keyword) {
 
     // If there's a partial match, add the current post to the results
     if (isMatch) {
-      results.push(current.data);
+      results.push(feed.data);
     }
 
     // Move to the next node
-    current = current.next;
+    feed = feed.next;
   }
   return results;
 }
